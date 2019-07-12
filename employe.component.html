@@ -1,0 +1,23 @@
+<div class="container">
+<h3>Show All Employees</h3>
+<table  class="table table-dark" border=" 5px double black" style=" border:5px double black" >
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Department</th>
+        <th>Action</th>
+    </tr>
+    <tr *ngFor="let employee of employees"  >
+        <td>{{employee.empId}}</td>
+        <td>{{employee.empName}}</td>
+        <td>{{employee.empSal}}</td>
+        <td>{{employee.empDept}}</td>
+        <td>
+            <Button class="btn btn-default" (click)=onDelete(employee)>
+               Delete
+              </Button>
+        </td>
+    </tr>
+</table>
+</div>

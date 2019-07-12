@@ -1,0 +1,54 @@
+<div class="container">
+<h3>Add Employee</h3>
+<form #empForm='ngForm' (ngSubmit)='onSubmit(empForm.value)'>
+    <div class="form-group">
+        <label>Id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input #pRef='ngModel' type="number" name="empId" pattern="[1-9][0-9]{4}"  ngModel class="form-control"/>
+        <div *ngIf='pRef.errors && (pRef.dirty || pRef.touched)'class="alert alert-danger">
+            <div [hidden]='!pRef.errors.required'>
+                please enter your id
+            </div>
+            <div [hidden]='!pRef.errors.pattern'>
+                 Id should be in digits starting from 1 to 9 of length 5
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+            <label>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input #nRef='ngModel' type="text" name="empName"  pattern="[A-Z][a-z]{3,30}" ngModel class="form-control" />
+            <div *ngIf='nRef.errors && (nRef.dirty || nRef.touched)'class="alert alert-danger">
+                <div [hidden]='!nRef.errors.required'>
+                    please enter your Name
+                </div>
+                <div [hidden]='!nRef.errors.pattern'>
+                     Name should start with Capital letters
+                </div>
+            </div>
+    </div>
+    <div class="form-group">
+            <label>Salary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input #mRef='ngModel' type="number" name="empSal"   pattern="[1-9][0-9]{2,15}" ngModel class="form-control" />
+            <div *ngIf='mRef.errors && (mRef.dirty || mRef.touched)'class="alert alert-danger">
+                <div [hidden]='!mRef.errors.required'>
+                    please enter Your Salary
+                </div>
+                <div [hidden]='!mRef.errors.pattern'>
+                     Salary should be only digits
+                </div>
+            </div>
+    </div>
+    <div class="form-group">
+            <label>Department</label>
+            <input #lRef='ngModel' type="text" name="empDept"  ngModel class="form-control"  pattern="[A-Z][a-zA-Z]{1,15}" />
+            <div *ngIf='lRef.errors && (lRef.dirty || lRef.touched)'class="alert alert-danger">
+                <div [hidden]='!lRef.errors.required'>
+                    please enter Your department
+                </div>
+                <div [hidden]='!lRef.errors.pattern'>
+                    Department namer should start with Capital letter
+                </div>
+            </div>
+    </div>
+    <input type="submit" value="Add Employee" class="btn btn-primary"/>
+</form>
+</div>
