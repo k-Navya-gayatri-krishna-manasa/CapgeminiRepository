@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- <bean class="com.cg.service.EmployeeLab" id="emp">
+		<property name="employeeId" value="11"></property>
+		<property name="employeeName" value="Vijay"></property>
+		<property name="salary" value="89000"></property>
+		<property name="bussinessUnit" ref="unit"></property>
+	</bean>
+ -->	
+	<bean class="com.cg.service.SBULab" id="unit">
+		<property name="sbuId" value="01"></property>
+		<property name="sbuName" value="xxx"></property>
+		<property name="sbuhead" value="abc"></property>
+		<property name="emplist" ref="emp">
+		<!-- <list>
+			<ref bean="emplist"/>
+			<ref bean="emp"/>
+			<value>12,Kiran,87965</value>
+			<value>13,vASU,87654</value>
+		</list> -->
+	
+  <list>
+  <value>1</value>
+  
+    <bean id="emp" class="com.cg.service.EmployeeLab">
+        <property name="employeeId" value="12"></property>
+		<property name="employeeName" value="Kiran"></property>
+		<property name="salary" value="97000"></property>
+    </bean>
+     <value>2</value>
+    <bean id="emp" class="com.cg.service.EmployeeLab">
+        <property name="employeeId" value="13"></property>
+		<property name="employeeName" value="Ajay"></property>
+		<property name="salary" value="23000"></property>
+    </bean>
+  </list>
+  </property>
+</bean>
+</beans>
