@@ -1,0 +1,196 @@
+getbyId:
+
+@Component({
+  selector: 'app-get-employee',
+  templateUrl: './get-employee.component.html',
+  styleUrls: ['./get-employee.component.css']
+})
+export class GetEmployeeComponent implements OnInit {
+
+  constructor(private employeeService:EmployeeService) { }
+  emp:Employee[]=[]; 
+  //emp:any={}
+  eid:number;
+
+  ngOnInit() {
+    this.eid = 0;
+  }
+
+  reloadData(){
+    this.employeeService.getAllEmployee().subscribe((data:any)=>this.emp=data);
+
+  }
+  getById() {
+    console.log(this.eid);
+    this.employeeService.getEmployeeById(this.eid)
+      .subscribe((emps:any)=> {this.emp = emps;  this.reloadData()});
+    
+
+  }
+ 
+  onSubmit() {
+    this.getById();
+  }
+}
+getbyId html:
+
+
+<h3>Find By Details</h3>
+<div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Employee Id</label>
+      <input type="text" class="form-control" id="eid" [(ngModel)]="eid" name="eid">
+    </div>
+    <div class="btn-group">
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </form>
+    </div>
+          <table border="2">
+                <tr>
+                    <th>Employee Id</th>
+                    <th>Employee Name</th>
+                    <th>Employee Salary</th>
+                   
+                </tr>
+                <tr *ngFor="let empee of emp">
+                    <td>{{empee.empId}}</td>
+                    <td>{{empee.empName}}</td>
+                    <td>{{empee.empSalary}}</td>
+                           </tr>
+            </table>
+            
+            
+            deletemployee.ts
+            
+            @Component({
+  selector: 'app-deleteemployee',
+  templateUrl: './deleteemployee.component.html',
+  styleUrls: ['./deleteemployee.component.css']
+})
+export class DeleteemployeeComponent implements OnInit {
+  model:any={};
+  
+  constructor(private employeeService:EmployeeService) { }
+  empdata:any[]=[]; 
+  //empdata1:any[]=[]; 
+
+  ngOnInit() {
+    this.reloadData();
+  }
+    reloadData(){
+    this.employeeService.getAllEmployee().subscribe((data:any)=>this.empdata=data);
+
+  }
+
+  deletebutton(id: number) {
+    //console.log(id);
+    this.employeeService.deleteEmployee(id)
+      .subscribe(data => {console.log(data);
+        this.reloadData();
+        })
+        }
+  
+  
+        deletebutton1(id: number) {
+          //console.log(id);
+          this.employeeService.deleteEmployee(id)
+            .subscribe(data => {console.log(data);
+              this.reloadData();
+              })
+              }
+       
+}
+
+delete.html
+
+
+<h2>Delete Employee...</h2>
+<table border="2">
+    <tr>
+        <th>Employee Id</th>
+        <th>Employee Name</th>
+        <th>Employee Salary</th>
+        <th>Action</th>
+    </tr>
+    <tr *ngFor="let emp of empdata">
+        <td>{{emp.empId}}</td>
+        <td>{{emp.empName}}</td>
+        <td>{{emp.empSalary}}</td>
+        <td><button class="btn btn-primary" (click)=deletebutton(emp.empId)>DeleteEmployee</button></td>
+    </tr>
+</table>
+
+service.ts
+
+ baseurl='http://localhost:9910/emplist/delete';
+   deleteEmployee(id:number) {
+    // let input2={"empId":user.id}
+     console.log("service"+id)
+    return this.http.delete(`${this.baseurl}/${id}` ,{responseType:'text'}); 
+   }
+   baseurl1='http://localhost:9910/emplist/getbyId';
+
+   getEmployeeById(id:number){
+     console.log("service"+id);
+    return this.http.get(`${this.baseurl1}/${id}` ,{responseType:'text'}); 
+
+   }
+  
+  
+  spring boot::
+  
+  @Override
+	public Employee searchByEmployeeId(int empid) {
+		// TODO Auto-generated method stub
+		//return employeeRepository.findById(empid).get();
+		 List<Employee> empList=showAllEmployee();
+		    Employee emp = null;
+		    for (Employee employee : empList) 
+		    {
+		if(employee.getEmpId().equals(empid))
+		emp=employee;
+		}
+		return emp;
+	}
+
+	@Override
+	public void deleteEmployee(Employee employee) {
+		
+		//Employee employee = searchByEmployeeId(empId);
+        //if(employee != null){
+        	employeeRepository.delete(employee);
+        //}
+	}
+  
+  
+  
+service springboot:
+
+@GetMapping("/getbyId/{eid}")
+	public  ResponseEntity<Employee> findByEmpId(@PathVariable Integer eid){
+		System.out.println(eid);
+		Employee data=employeeService.searchByEmployeeId(eid) ;
+		if(data==null) {
+			return new ResponseEntity("No employee Found",HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity(data,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public  void deletion(@PathVariable Integer id){
+		//int eid=employee.getEmpId();
+		System.out.println("Id"+id);
+		Employee e=employeeService.searchByEmployeeId(id);
+		System.out.println(e);
+	if(e!=null) {
+		employeeService.deleteEmployee(e) ;
+
+	}
+
+
+
+
+       
+       
