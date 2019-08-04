@@ -1,0 +1,34 @@
+@PutMapping("/{deptId}")
+    public Department updateDept(@RequestBody Department department, @PathVariable String deptId) {
+        department.setId(deptId);
+        departmentRepository.save(department);
+        return department;
+    }
+
+Below is the equivalent implementation using MongoTemplate for update operation.
+
+public Department update(Department department){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(department.getId()));
+        Update update = new Update();
+        update.set("name", department.getName());
+        update.set("description", department.getDescription());
+        return mongoTemplate.findAndModify(query, update, Department.class);
+    }
+
+
+delete:
+
+
+public void deleteById(String deptId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(deptId));
+        mongoTemplate.remove(query, Department.class);
+    }
+    
+    get by dept name:
+    public List findDepartmentByName(String deptName){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("name").is(deptName));
+        return mongoTemplate.find(query, Department.class);
+    }
