@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><transaction>
+<retailStoreID>444</retailStoreID>
+<transactiondetails><businessDayDate>08/07/2019</businessDayDate><purchaseDetails OrderId="122"><items><itemId>1001</itemId><itemName>Soaps</itemName><amount>220.0</amount><quantity>25</quantity></items><items><itemId>1002</itemId><itemName>Books</itemName><amount>230.0</amount><quantity>27</quantity></items><totalAmount>20000.0</totalAmount></purchaseDetails><delivery deliveryValue="Yes"><deliveryStatus>Completed</deliveryStatus></delivery><paymentMode>cash</paymentMode></transactiondetails>
+<transactionDetails>
+<businessDayDate>08/07/2019</businessDayDate>
+<purchaseDetails OrderId="113">
+<items>
+<itemId>2001</itemId><itemName>apples</itemName><amount>220.0</amount><quantity>25</quantity></items><items><itemId>2002</itemId><itemName>Oranges</itemName><amount>230.0</amount><quantity>27</quantity></items><totalAmount>3000.0</totalAmount></purchaseDetails><delivery deliveryValue="Yes"><deliveryStatus>cmpleted</deliveryStatus></delivery><paymentMode>debit</paymentMode></transactionDetails></transaction>

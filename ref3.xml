@@ -1,0 +1,12 @@
+if(result.equalsIgnoreCase("Not Initiated")){
+						return 1;
+					}
+					else if(result.equalsIgnoreCase("Initiated")) {
+						return 2;
+					}
+					else if(result.equalsIgnoreCase("Completed")) {
+						return 3;
+					}
+					else if(result.equalsIgnoreCase("Not Applicable")) {
+						return 4;
+					}
